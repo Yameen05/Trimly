@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Custom styles for the app */
+.barber-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.barber-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.service-card:hover {
+  transform: scale(1.02);
+}
+
+.appointment-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.appointment-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
