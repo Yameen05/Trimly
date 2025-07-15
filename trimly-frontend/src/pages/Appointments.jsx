@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Appointments = () => {
   const { user, loading } = useAuth();
@@ -125,12 +125,12 @@ const Appointments = () => {
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No Appointments</h3>
             <p className="text-gray-600 mb-6">You don't have any appointments yet.</p>
-            <a
-              href="/barbers"
+            <Link
+              to="/services"
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
             >
               Book Your First Appointment
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid gap-6">
@@ -149,7 +149,7 @@ const Appointments = () => {
                         <div className="grid md:grid-cols-3 gap-4 text-sm">
                           <div>
                             <span className="text-gray-600">Barber:</span>
-                            <p className="font-medium">{appointment.barber_name || 'Professional Barber'}</p>
+                            <p className="font-medium">Ali</p>
                           </div>
                           <div>
                             <span className="text-gray-600">Date:</span>
@@ -189,12 +189,12 @@ const Appointments = () => {
                         Delete
                       </button>
                     )}
-                    <button
-                      onClick={() => window.open(`/barbers`, '_blank')}
+                    <Link
+                      to="/services"
                       className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200 text-sm font-medium"
                     >
                       Rebook
-                    </button>
+                    </Link>
                   </div>
                 </div>
 
@@ -213,15 +213,15 @@ const Appointments = () => {
         {/* Quick Actions */}
         {appointments.length > 0 && (
           <div className="mt-8 text-center">
-            <a
-              href="/barbers"
+            <Link
+              to="/services"
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
               Book New Appointment
-            </a>
+            </Link>
           </div>
         )}
       </div>

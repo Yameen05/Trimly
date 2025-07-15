@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from .models import Appointment, Barber, Service
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout
 
 @api_view(['GET'])
 def hello(request):
@@ -56,11 +57,18 @@ def get_my_appointments(request):
     return Response(list(appointments))
 
 
+@csrf_exempt
 @api_view(['POST'])
 @login_required
 def book_appointment(request):
     data = request.data
     ali = Barber.objects.get(name="Ali")
+
+    # Require customer_phone
+    customer_phone = data.get('customer_phone')
+    if not customer_phone:
+        return Response({'error': 'Phone number is required.'}, status=400)
+    notes = data.get('notes', '')
 
     appointment = Appointment.objects.create(
         customer=request.user,
@@ -68,6 +76,8 @@ def book_appointment(request):
         appointment_date=data['appointment_date'],
         appointment_time=data['appointment_time'],
         service_id=data['service_id'],
+        customer_phone=customer_phone,
+        notes=notes,
     )
     return Response({"message": "Appointment booked successfully!"})
 
@@ -129,7 +139,6 @@ def get_available_times(request):
 
     return Response({'slots': slots})
 
-@csrf_exempt
 @api_view(['POST'])
 def api_login(request):
     username = request.data.get('username')
@@ -140,6 +149,7 @@ def api_login(request):
         return Response({'success': True, 'username': user.username})
     return Response({'success': False, 'error': 'Invalid credentials'}, status=400)
 
+@csrf_exempt
 @api_view(['POST'])
 def api_logout(request):
     logout(request)

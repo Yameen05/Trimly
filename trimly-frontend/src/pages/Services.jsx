@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const API_BASE_URL = 'http://localhost:8000/api';
 
@@ -10,9 +11,12 @@ const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [notes, setNotes] = useState('');
   const [availableTimes, setAvailableTimes] = useState([]);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchData();
@@ -51,13 +55,19 @@ const Services = () => {
     setShowBooking(true);
     setSelectedDate('');
     setSelectedTime('');
+    setCustomerPhone('');
+    setNotes('');
     setMessage('');
     setAvailableTimes([]);
   };
 
   const handleBooking = async () => {
-    if (!selectedService || !selectedDate || !selectedTime) {
-      setMessage('Please fill in all fields');
+    if (!user) {
+      setMessage('You must be logged in to book an appointment.');
+      return;
+    }
+    if (!selectedService || !selectedDate || !selectedTime || !customerPhone) {
+      setMessage('Please fill in all required fields');
       return;
     }
     if (!aliId) {
@@ -67,16 +77,19 @@ const Services = () => {
     setBookingLoading(true);
     try {
       await axios.post(`${API_BASE_URL}/book/`, {
-        barber_id: aliId,
         service_id: selectedService.id,
         appointment_date: selectedDate,
-        appointment_time: selectedTime
+        appointment_time: selectedTime,
+        customer_phone: customerPhone,
+        notes: notes
       }, { withCredentials: true });
       setMessage('Appointment booked successfully!');
       setShowBooking(false);
       setSelectedService(null);
       setSelectedDate('');
       setSelectedTime('');
+      setCustomerPhone('');
+      setNotes('');
       setAvailableTimes([]);
     } catch (error) {
       setMessage('Error booking appointment. Please try again.');
@@ -158,9 +171,30 @@ const Services = () => {
                   ))}
                 </select>
               </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number <span className="text-red-500">*</span></label>
+                <input
+                  type="tel"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter your phone number"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Notes (optional)</label>
+                <textarea
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Any special requests?"
+                  rows={2}
+                />
+              </div>
               <button
                 onClick={handleBooking}
-                disabled={bookingLoading || !selectedTime}
+                disabled={bookingLoading || !selectedTime || !customerPhone}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-6 rounded-md font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {bookingLoading ? 'Booking...' : 'Book Appointment'}
@@ -181,6 +215,16 @@ const Services = () => {
                       <span className="text-gray-600">Time:</span>
                       <p className="font-medium">{availableTimes.find(slot => slot.raw_time === selectedTime)?.time}</p>
                     </div>
+                    <div>
+                      <span className="text-gray-600">Phone:</span>
+                      <p className="font-medium">{customerPhone}</p>
+                    </div>
+                    {notes && (
+                      <div>
+                        <span className="text-gray-600">Notes:</span>
+                        <p className="font-medium">{notes}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
