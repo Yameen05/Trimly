@@ -15,6 +15,10 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const handleMyAccount = () => {
+    navigate('/my-account');
+  };
+
   return (
     <nav className="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,82 +34,15 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link
-              to="/"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/') 
-                  ? 'bg-white text-blue-600' 
-                  : 'text-white hover:bg-white hover:text-blue-600'
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/services"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/services') 
-                  ? 'bg-white text-blue-600' 
-                  : 'text-white hover:bg-white hover:text-blue-600'
-              }`}
-            >
-              Book Appointment
-            </Link>
-            <Link
-              to="/about"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/about') 
-                  ? 'bg-white text-blue-600' 
-                  : 'text-white hover:bg-white hover:text-blue-600'
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/contact') 
-                  ? 'bg-white text-blue-600' 
-                  : 'text-white hover:bg-white hover:text-blue-600'
-              }`}
-            >
-              Contact
-            </Link>
-            <Link
-              to="/admin"
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive('/admin') 
-                  ? 'bg-white text-blue-600' 
-                  : 'text-white hover:bg-white hover:text-blue-600'
-              }`}
-            >
-              Admin
-            </Link>
-            {user && (
-              <Link
-                to="/appointments"
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive('/appointments') 
-                    ? 'bg-white text-blue-600' 
-                    : 'text-white hover:bg-white hover:text-blue-600'
-                }`}
-              >
-                My Appointments
-              </Link>
-            )}
+            <Link to="/" className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive('/') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`}>Home</Link>
+            <Link to="/services" className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive('/services') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`}>Book Appointment</Link>
+            <Link to="/about" className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive('/about') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`}>About</Link>
+            <Link to="/contact" className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive('/contact') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`}>Contact</Link>
+            <Link to="/appointments" className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive('/appointments') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`}>My Appointments</Link>
             {!user ? (
-              <Link
-                to="/login"
-                className="bg-white text-blue-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
-              >
-                Login / Sign Up
-              </Link>
+              <Link to="/login" className="bg-white text-blue-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">Login / Sign Up</Link>
             ) : (
-              <button
-                onClick={handleLogout}
-                className="bg-white text-blue-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
-              >
-                Sign Out
-              </button>
+              <button onClick={handleLogout} className="bg-white text-blue-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">Sign Out</button>
             )}
           </div>
 
@@ -130,89 +67,28 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-blue-700 rounded-b-lg">
-              <Link
-                to="/"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive('/') 
-                    ? 'bg-white text-blue-600' 
-                    : 'text-white hover:bg-white hover:text-blue-600'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/services"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive('/services') 
-                    ? 'bg-white text-blue-600' 
-                    : 'text-white hover:bg-white hover:text-blue-600'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Book Appointment
-              </Link>
-              <Link
-                to="/about"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive('/about') 
-                    ? 'bg-white text-blue-600' 
-                    : 'text-white hover:bg-white hover:text-blue-600'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                to="/contact"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive('/contact') 
-                    ? 'bg-white text-blue-600' 
-                    : 'text-white hover:bg-white hover:text-blue-600'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                to="/admin"
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                  isActive('/admin') 
-                    ? 'bg-white text-blue-600' 
-                    : 'text-white hover:bg-white hover:text-blue-600'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Admin
-              </Link>
-              {user && (
-                <Link
-                  to="/appointments"
-                  className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    isActive('/appointments') 
-                      ? 'bg-white text-blue-600' 
-                      : 'text-white hover:bg-white hover:text-blue-600'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  My Appointments
-                </Link>
-              )}
+              <Link to="/" className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive('/') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`} onClick={() => setIsMenuOpen(false)}>Home</Link>
+              <Link to="/services" className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive('/services') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`} onClick={() => setIsMenuOpen(false)}>Book Appointment</Link>
+              <Link to="/about" className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive('/about') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`} onClick={() => setIsMenuOpen(false)}>About</Link>
+              <Link to="/contact" className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive('/contact') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`} onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              <Link to="/appointments" className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive('/appointments') ? 'bg-white text-blue-600' : 'text-white hover:bg-white hover:text-blue-600'}`} onClick={() => setIsMenuOpen(false)}>My Appointments</Link>
               {!user ? (
-                <Link
-                  to="/login"
-                  className="block bg-white text-blue-600 px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login / Sign Up
-                </Link>
+                <Link to="/login" className="block bg-white text-blue-600 px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 transition-colors" onClick={() => setIsMenuOpen(false)}>Login / Sign Up</Link>
               ) : (
-                <button
-                  onClick={() => { setIsMenuOpen(false); handleLogout(); }}
-                  className="block bg-white text-blue-600 px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 transition-colors w-full text-left"
-                >
-                  Sign Out
-                </button>
+                <>
+                  <button
+                    onClick={() => { setIsMenuOpen(false); handleLogout(); }}
+                    className="block bg-white text-blue-600 px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 transition-colors w-full text-left"
+                  >
+                    Sign Out
+                  </button>
+                  <button
+                    onClick={() => { setIsMenuOpen(false); handleMyAccount(); }}
+                    className="block bg-white text-blue-600 px-3 py-2 rounded-md text-base font-medium hover:bg-gray-100 transition-colors w-full text-left"
+                  >
+                    My Account
+                  </button>
+                </>
               )}
             </div>
           </div>
