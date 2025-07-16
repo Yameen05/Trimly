@@ -6,7 +6,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     # API routes (React will call these)
-    path('hello/', views.hello, name='hello'),
     path('barbers/', views.get_barbers, name='get_barbers'),
     path('services/', views.get_services, name='get_services'),
     path('appointments/', views.get_appointments, name='get_appointments'),
