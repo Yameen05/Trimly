@@ -12,11 +12,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
 
 @api_view(['GET'])
-def hello(request):
-    return Response({"message": "Hello from Django!"})
-
-
-@api_view(['GET'])
 def get_routes(request):
     routes = [
         '/api/hello/',
@@ -55,7 +50,6 @@ def get_appointments(request):
 def get_my_appointments(request):
     appointments = Appointment.objects.filter(customer=request.user).values()
     return Response(list(appointments))
-
 
 @csrf_exempt
 @api_view(['POST'])
