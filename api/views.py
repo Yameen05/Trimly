@@ -1,5 +1,11 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
@@ -10,6 +16,7 @@ from .models import Appointment, Barber, Service
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
+from django.middleware.csrf import get_token
 
 @api_view(['GET'])
 def get_routes(request):
@@ -46,39 +53,65 @@ def get_appointments(request):
 
 
 @api_view(['GET'])
-@login_required
 def get_my_appointments(request):
-    appointments = Appointment.objects.filter(customer=request.user).values()
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication required.'}, status=401)
+    
+    appointments = Appointment.objects.filter(customer=request.user).select_related('service', 'barber').values(
+        'id', 'appointment_date', 'appointment_time', 'status', 'notes', 'created_at',
+        'service__name', 'service__price', 'barber__name'
+    )
     return Response(list(appointments))
 
-@csrf_exempt
 @api_view(['POST'])
-@login_required
+@authentication_classes([CsrfExemptSessionAuthentication])
 def book_appointment(request):
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication required.'}, status=401)
+    
     data = request.data
-    ali = Barber.objects.get(name="Ali")
+    try:
+        ali = Barber.objects.get(name="Ali")
+    except Barber.DoesNotExist:
+        return Response({'error': 'Barber not found.'}, status=404)
 
     # Require customer_phone
     customer_phone = data.get('customer_phone')
     if not customer_phone:
         return Response({'error': 'Phone number is required.'}, status=400)
+    
+    # Validate required fields
+    required_fields = ['appointment_date', 'appointment_time', 'service_id']
+    for field in required_fields:
+        if not data.get(field):
+            return Response({'error': f'{field} is required.'}, status=400)
+    
     notes = data.get('notes', '')
 
-    appointment = Appointment.objects.create(
-        customer=request.user,
-        barber=ali,
-        appointment_date=data['appointment_date'],
-        appointment_time=data['appointment_time'],
-        service_id=data['service_id'],
-        customer_phone=customer_phone,
-        notes=notes,
-    )
-    return Response({"message": "Appointment booked successfully!"})
+    try:
+        appointment = Appointment.objects.create(
+            customer=request.user,
+            barber=ali,
+            appointment_date=data['appointment_date'],
+            appointment_time=data['appointment_time'],
+            service_id=data['service_id'],
+            customer_phone=customer_phone,
+            notes=notes,
+        )
+        return Response({
+            "message": "Appointment booked successfully!",
+            "appointment_id": appointment.id
+        })
+    except Exception as e:
+        return Response({'error': f'Failed to book appointment: {str(e)}'}, status=400)
 
 
 @api_view(['POST'])
-@login_required
+@authentication_classes([CsrfExemptSessionAuthentication])
 def cancel_appointment(request, appointment_id):
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication required.'}, status=401)
+    
     appointment = get_object_or_404(Appointment, id=appointment_id, customer=request.user)
 
     if appointment.status == 'scheduled':
@@ -89,8 +122,11 @@ def cancel_appointment(request, appointment_id):
 
 
 @api_view(['DELETE'])
-@login_required
+@authentication_classes([CsrfExemptSessionAuthentication])
 def delete_appointment(request, appointment_id):
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication required.'}, status=401)
+    
     appointment = get_object_or_404(Appointment, id=appointment_id, customer=request.user)
 
     if appointment.status == 'cancelled':
@@ -143,7 +179,6 @@ def api_login(request):
         return Response({'success': True, 'username': user.username})
     return Response({'success': False, 'error': 'Invalid credentials'}, status=400)
 
-@csrf_exempt
 @api_view(['POST'])
 def api_logout(request):
     logout(request)

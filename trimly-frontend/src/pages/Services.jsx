@@ -62,6 +62,7 @@ const Services = () => {
   };
 
   const handleBooking = async () => {
+    console.log('handleBooking called');
     if (!user) {
       setMessage('You must be logged in to book an appointment.');
       return;
@@ -76,13 +77,24 @@ const Services = () => {
     }
     setBookingLoading(true);
     try {
-      await axios.post(`${API_BASE_URL}/book/`, {
+      console.log('Making POST request to:', `${API_BASE_URL}/book/`);
+      console.log('Request data:', {
+        service_id: selectedService.id,
+        appointment_date: selectedDate,
+        appointment_time: selectedTime,
+        customer_phone: customerPhone,
+        notes: notes
+      });
+      
+      const response = await axios.post(`${API_BASE_URL}/book/`, {
         service_id: selectedService.id,
         appointment_date: selectedDate,
         appointment_time: selectedTime,
         customer_phone: customerPhone,
         notes: notes
       }, { withCredentials: true });
+      
+      console.log('Booking response:', response.data);
       setMessage('Appointment booked successfully!');
       setShowBooking(false);
       setSelectedService(null);
@@ -92,7 +104,8 @@ const Services = () => {
       setNotes('');
       setAvailableTimes([]);
     } catch (error) {
-      setMessage('Error booking appointment. Please try again.');
+      console.error('Booking error:', error);
+      setMessage(error.response?.data?.error || 'Error booking appointment. Please try again.');
     }
     setBookingLoading(false);
   };
@@ -209,7 +222,7 @@ const Services = () => {
                     </div>
                     <div>
                       <span className="text-gray-600">Date:</span>
-                      <p className="font-medium">{new Date(selectedDate).toLocaleDateString()}</p>
+                      <p className="font-medium">{selectedDate ? new Date(selectedDate + 'T00:00:00').toLocaleDateString() : ''}</p>
                     </div>
                     <div>
                       <span className="text-gray-600">Time:</span>
