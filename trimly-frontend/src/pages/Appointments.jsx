@@ -36,7 +36,7 @@ const Appointments = () => {
 
   const handleCancel = async (appointmentId) => {
     try {
-      await axios.post(`${API_BASE_URL}/cancel/${appointmentId}/`);
+      await axios.post(`${API_BASE_URL}/cancel/${appointmentId}/`, {}, { withCredentials: true });
       setMessage('Appointment cancelled successfully!');
       fetchAppointments(); // Refresh the list
     } catch (error) {
@@ -47,7 +47,7 @@ const Appointments = () => {
 
   const handleDelete = async (appointmentId) => {
     try {
-      await axios.delete(`${API_BASE_URL}/delete/${appointmentId}/`);
+      await axios.delete(`${API_BASE_URL}/delete/${appointmentId}/`, { withCredentials: true });
       setMessage('Appointment deleted successfully!');
       fetchAppointments(); // Refresh the list
     } catch (error) {
@@ -70,7 +70,8 @@ const Appointments = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    // Add T00:00:00 to prevent timezone issues with date-only strings
+    return new Date(dateString + 'T00:00:00').toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -144,12 +145,12 @@ const Appointments = () => {
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                          {appointment.service_name || 'Haircut Service'}
+                          {appointment.service__name || 'Haircut Service'}
                         </h3>
                         <div className="grid md:grid-cols-3 gap-4 text-sm">
                           <div>
                             <span className="text-gray-600">Barber:</span>
-                            <p className="font-medium">Ali</p>
+                            <p className="font-medium">{appointment.barber__name || 'Ali'}</p>
                           </div>
                           <div>
                             <span className="text-gray-600">Date:</span>
@@ -166,7 +167,7 @@ const Appointments = () => {
                           {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
                         </span>
                         <p className="text-lg font-semibold text-blue-600">
-                          ${appointment.service_price || '25'}
+                          ${appointment.service__price || '25'}
                         </p>
                       </div>
                     </div>
