@@ -148,12 +148,18 @@ npm run dev
 
 ### 4. Environment Configuration
 ```bash
-# Backend: Add your OpenAI API key to backend/settings.py
-OPENAI_API_KEY = 'your-openai-api-key-here'
+# Copy the environment template
+cp .env.example .env
+
+# Edit .env file and add your actual API keys
+# OPENAI_API_KEY=your-actual-openai-api-key-here
+# SECRET_KEY=your-django-secret-key-here
 
 # Frontend: Ensure API base URL matches your Django server
 const API_BASE_URL = 'http://localhost:8000/api';
 ```
+
+**⚠️ Important: Never commit your `.env` file to version control!**
 
 ---
 
@@ -280,6 +286,23 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - 💼 **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
 - 🐙 **GitHub**: [Your GitHub Profile](https://github.com/yourusername)
 - 🌐 **Portfolio**: [Your Portfolio Website](https://yourportfolio.com)
+
+---
+
+## 🔐 Security & Environment Variables
+
+This project follows security best practices:
+
+- **Environment Variables**: All sensitive data (API keys, secrets) are stored in `.env` files
+- **Git Security**: `.env` files are excluded from version control via `.gitignore`
+- **Template Provided**: Use `.env.example` as a template for your local setup
+- **Production Ready**: Environment-based configuration for different deployment stages
+
+### Setting Up Your Environment:
+1. Copy `.env.example` to `.env`
+2. Replace placeholder values with your actual API keys
+3. Never commit `.env` files to GitHub
+4. Use environment variables in production deployments
 
 ---
 
