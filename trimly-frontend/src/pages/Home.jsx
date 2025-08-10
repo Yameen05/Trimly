@@ -19,7 +19,7 @@ const Home = () => {
             </div>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               {user ? (
-                <>Welcome back, <span className="text-blue-400">{user.username}</span></>
+                <>Welcome, <span className="text-blue-400">{user.username}</span></>
               ) : (
                 <>Welcome to <span className="text-blue-400">Trimly</span></>
               )}
