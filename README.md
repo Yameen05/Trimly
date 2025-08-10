@@ -170,6 +170,8 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - Feature highlights with smooth animations
 - Professional business information display
 - Integrated location services
+- <img width="3600" height="1888" alt="image" src="https://github.com/user-attachments/assets/8f311a2c-1f12-4fd0-a2ef-c49acea8a5fb" />
+
 
 ### 📋 **Service Booking Interface**
 - Clean service catalog with pricing
