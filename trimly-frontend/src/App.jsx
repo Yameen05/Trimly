@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
 import Appointments from './pages/Appointments';
 import Login from './pages/Login';
@@ -24,6 +25,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+      <Chatbot />
     </Router>
   );
 }

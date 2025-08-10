@@ -18,6 +18,9 @@ urlpatterns = [
     path('logout/', views.api_logout, name='api_logout'),
     path('signup/', views.api_signup, name='api_signup'),
     path('user/', views.api_user, name='api_user'),
+    path('chatbot/', views.chatbot_gpt, name='chatbot_gpt'),
     # Optional: Debug route
     path('routes/', views.get_routes, name='get_routes'),
+    
+    
 ]

@@ -103,42 +103,54 @@ const Appointments = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">My Appointments</h1>
-          <p className="text-lg text-gray-600">Manage your barbershop appointments</p>
+          <p className="text-lg text-gray-600">Manage your appointments with Ali</p>
         </div>
 
         {/* Message Display */}
         {message && (
-          <div className={`mb-6 p-4 rounded-lg ${
+          <div className={`mb-8 p-4 rounded-xl shadow-lg ${
             message.includes('successfully') 
               ? 'bg-green-100 text-green-700 border border-green-200' 
               : 'bg-red-100 text-red-700 border border-red-200'
           }`}>
-            {message}
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="font-semibold">{message}</span>
+            </div>
           </div>
         )}
 
         {appointments.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+          <div className="text-center py-16">
+            <div className="bg-white rounded-2xl p-12 shadow-xl border border-gray-100 max-w-md mx-auto">
+              <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">No Appointments Yet</h3>
+              <p className="text-gray-600 mb-8 leading-relaxed">
+                Ready for a fresh cut? Book your first appointment with Ali and experience premium barbershop service.
+              </p>
+              <Link
+                to="/services"
+                className="inline-flex items-center bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Book Your First Appointment
+              </Link>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No Appointments</h3>
-            <p className="text-gray-600 mb-6">You don't have any appointments yet.</p>
-            <Link
-              to="/services"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
-            >
-              Book Your First Appointment
-            </Link>
           </div>
         ) : (
           <div className="grid gap-6">
             {appointments.map((appointment) => (
               <div
                 key={appointment.id}
-                className="bg-white rounded-lg shadow-lg p-6 appointment-card"
+                className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 appointment-card"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                   <div className="flex-1">
@@ -216,7 +228,7 @@ const Appointments = () => {
           <div className="mt-8 text-center">
             <Link
               to="/services"
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

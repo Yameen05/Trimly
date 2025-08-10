@@ -17,6 +17,8 @@ from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
 from django.middleware.csrf import get_token
+from django.conf import settings
+import openai
 
 @api_view(['GET'])
 def get_routes(request):
@@ -200,3 +202,99 @@ def api_user(request):
     if request.user.is_authenticated:
         return Response({'isAuthenticated': True, 'username': request.user.username})
     return Response({'isAuthenticated': False})
+
+@api_view(['POST'])
+@authentication_classes([CsrfExemptSessionAuthentication])
+def chatbot_gpt(request):
+    user_message = request.data.get('message', '')
+    if not user_message:
+        return Response({'error': 'Message is required'}, status=400)
+
+    try:
+        print(f"Received message: {user_message}")
+        print(f"API Key exists: {bool(settings.OPENAI_API_KEY)}")
+        
+        # Initialize OpenAI client
+        client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
+        
+        # Create a system prompt with barbershop context
+        system_prompt = """You are Trimly's AI assistant helping customers book appointments with Ali, a skilled barber in Charlotte, NC. You're friendly, conversational, and knowledgeable about the booking platform and Ali's services.
+
+ABOUT TRIMLY:
+- Trimly is a modern barbershop booking platform
+- Connects customers with skilled barbers like Ali
+- Easy online booking and appointment management
+
+ALI'S INFORMATION:
+- Barber: Ali (experienced, specializes in classic cuts and beard styling)
+- Location: 6721 E Independence Blvd, Charlotte, NC 28212
+- Phone: (980) 318-4863
+- Hours: Monday-Saturday 9:00 AM - 6:00 PM, Closed Sunday
+
+SERVICES & PRICING:
+- Classic Haircut: $35 (45 minutes)
+- Beard Trim: $15 (15 minutes) 
+- Haircut + Beard: $50 (60 minutes)
+
+BOOKING & POLICIES:
+- Online booking available through Trimly platform
+- Walk-ins welcome but appointments get priority
+- Call (980) 318-4863 to book directly with Ali
+- Cancellations: 2+ hours notice, no fees
+- Payment: Cash, cards, mobile payments
+- Professional hygiene standards
+
+Respond naturally like ChatGPT would, but emphasize that Trimly is the booking platform connecting customers with Ali. Be conversational, helpful, and encourage bookings when appropriate."""
+
+        print("Making OpenAI API call...")
+        
+        # Make API call to OpenAI
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ],
+            max_tokens=200,
+            temperature=0.8
+        )
+        
+        bot_response = response.choices[0].message.content
+        print(f"GPT Response: {bot_response}")
+        
+        return Response({
+            'response': bot_response,
+            'success': True,
+            'powered_by': 'gpt-4o-mini'
+        })
+        
+    except Exception as e:
+        print(f"OpenAI API Error: {str(e)}")
+        print(f"Error type: {type(e)}")
+        
+        # Better fallback responses that handle common interactions properly
+        message_lower = user_message.lower()
+        
+        if any(word in message_lower for word in ['thank', 'thanks', 'appreciate']):
+            fallback = "You're very welcome! Is there anything else I can help you with about booking with Ali?"
+        elif any(word in message_lower for word in ['hello', 'hi', 'hey', 'good morning', 'good afternoon']):
+            fallback = "Hello! Welcome to Trimly! How can I help you today? I can tell you about Ali's services, hours, or help you book an appointment."
+        elif any(word in message_lower for word in ['bye', 'goodbye', 'see you', 'later']):
+            fallback = "Goodbye! Thanks for using Trimly. We look forward to helping you book with Ali soon!"
+        elif any(word in message_lower for word in ['service', 'haircut', 'beard', 'price', 'cost', 'menu']):
+            fallback = "We offer Classic Haircut ($35), Beard Trim ($15), and Haircut + Beard ($50). All services include consultation and styling. Would you like to book an appointment?"
+        elif any(word in message_lower for word in ['hour', 'open', 'close', 'time', 'when']):
+            fallback = "We're open Monday-Saturday 9:00 AM - 6:00 PM, closed Sunday. You can call us at (980) 318-4863 or book online!"
+        elif any(word in message_lower for word in ['location', 'address', 'where', 'find']):
+            fallback = "We're located at 6721 E Independence Blvd, Charlotte, NC 28212. You can call us at (980) 318-4863 for directions!"
+        elif any(word in message_lower for word in ['book', 'appointment', 'schedule']):
+            fallback = "Great! You can book online through our website or call us at (980) 318-4863. What service are you interested in?"
+        else:
+            fallback = "I'm here to help with questions about booking with Ali! I can tell you about his services, hours, location, or help you book an appointment. What would you like to know?"
+            
+        return Response({
+            'response': fallback,
+            'success': True,
+            'fallback': True,
+            'error': str(e)
+        })
