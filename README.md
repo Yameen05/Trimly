@@ -15,9 +15,7 @@
 
 <<<<<<< HEAD
 =======
-[🚀 Live Demo](https://trimly.vercel.app) • [📖 Documentation](https://github.com/YameenAlsaaidah/trimly#features) • [🛠️ Installation](#installation) • [🎯 Features](#features)
 
->>>>>>> c7b78467d54df9245afb580852bde2176f960c90
 </div>
 
 ---
