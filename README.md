@@ -13,8 +13,6 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0+-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)](https://openai.com/)
 
-[🚀 Live Demo](#) • [📖 Documentation](#features) • [🛠️ Installation](#installation) • [🎯 Features](#features)
-
 </div>
 
 ---
@@ -24,6 +22,7 @@
 **Trimly** is a cutting-edge barbershop booking platform that bridges traditional craftsmanship with modern technology. Built as a comprehensive full-stack solution, it demonstrates advanced web development skills, modern UI/UX design principles, and seamless integration of AI-powered features.
 
 ### 🎯 The Vision
+
 Transform the barbershop experience by creating an intuitive, professional platform where customers can effortlessly book appointments with skilled barbers like Ali, while providing barbers with powerful tools to manage their business.
 
 ---
@@ -31,12 +30,14 @@ Transform the barbershop experience by creating an intuitive, professional platf
 ## ✨ Key Features
 
 ### 🔐 **Authentication & User Management**
+
 - **Secure user registration and login system**
 - **Session-based authentication with Django**
 - **Protected routes and user-specific content**
 - **Seamless user experience with persistent sessions**
 
 ### 📅 **Smart Appointment Booking**
+
 - **Real-time availability checking**
 - **Interactive date and time selection**
 - **Conflict prevention and double-booking protection**
@@ -44,6 +45,7 @@ Transform the barbershop experience by creating an intuitive, professional platf
 - **Appointment management (view, cancel, reschedule)**
 
 ### 🤖 **AI-Powered Chatbot**
+
 - **GPT-4 integration for intelligent customer support**
 - **Natural language processing for customer queries**
 - **Contextual responses about services, pricing, and policies**
@@ -51,6 +53,7 @@ Transform the barbershop experience by creating an intuitive, professional platf
 - **Professional conversation flow**
 
 ### 🎨 **Modern UI/UX Design**
+
 - **Responsive design optimized for all devices**
 - **Professional blue gradient theme**
 - **Smooth animations and micro-interactions**
@@ -58,12 +61,14 @@ Transform the barbershop experience by creating an intuitive, professional platf
 - **Accessibility-compliant components**
 
 ### 🗺️ **Location Integration**
+
 - **Embedded Google Maps for easy navigation**
 - **Direct integration with Google Maps directions**
 - **Business hours and contact information display**
 - **Mobile-friendly location services**
 
 ### 📊 **Business Management**
+
 - **Service catalog with pricing and duration**
 - **Appointment history and tracking**
 - **Customer communication tools**
@@ -74,6 +79,7 @@ Transform the barbershop experience by creating an intuitive, professional platf
 ## 🛠️ Technology Stack
 
 ### **Frontend**
+
 - **React 18** - Modern component-based architecture
 - **React Router** - Client-side routing and navigation
 - **Axios** - HTTP client for API communication
@@ -81,17 +87,20 @@ Transform the barbershop experience by creating an intuitive, professional platf
 - **Vite** - Fast build tool and development server
 
 ### **Backend**
+
 - **Django 5.1** - Robust Python web framework
 - **Django REST Framework** - API development
 - **SQLite** - Lightweight database for development
 - **Django CORS Headers** - Cross-origin resource sharing
 
 ### **AI & Integration**
+
 - **OpenAI GPT-4** - Advanced conversational AI
 - **Google Maps API** - Location services and mapping
 - **Session Authentication** - Secure user management
 
 ### **Development Tools**
+
 - **Git** - Version control
 - **Modern ES6+** - Latest JavaScript features
 - **Component-based Architecture** - Scalable frontend structure
@@ -102,17 +111,20 @@ Transform the barbershop experience by creating an intuitive, professional platf
 ## 🚀 Installation & Setup
 
 ### Prerequisites
+
 - **Node.js** (v16 or higher)
 - **Python** (v3.8 or higher)
 - **Git**
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/yourusername/trimly.git
 cd trimly
 ```
 
 ### 2. Backend Setup (Django)
+
 ```bash
 # Navigate to backend directory
 cd backend
@@ -135,6 +147,7 @@ python manage.py runserver
 ```
 
 ### 3. Frontend Setup (React)
+
 ```bash
 # Navigate to frontend directory
 cd trimly-frontend
@@ -147,6 +160,7 @@ npm run dev
 ```
 
 ### 4. Environment Configuration
+
 ```bash
 # Copy the environment template
 cp .env.example .env
@@ -166,24 +180,64 @@ const API_BASE_URL = 'http://localhost:8000/api';
 ## 📱 Application Screenshots
 
 ### 🏠 **Modern Homepage**
+
+![Homepage Screenshot](screenshots/homepage.png)
+
 - Hero section with compelling call-to-action
 - Feature highlights with smooth animations
 - Professional business information display
 - Integrated location services
 
-### 📋 **Service Booking Interface**
-- Clean service catalog with pricing
-- Interactive booking modal with real-time availability
-- Comprehensive appointment summary
-- Seamless user experience flow
+### ℹ️ **About Page**
+
+![About Page Screenshot](screenshots/about-page.png)
+
+- Professional barber introduction and background
+- Business story and mission statement
+- Team showcase with expertise highlights
+- Trust-building content and credentials
+
+### 🛍️ **Services Showcase**
+
+![Services Page Screenshot](screenshots/services-page.png)
+
+- Comprehensive service catalog with detailed descriptions
+- Professional pricing structure
+- Service duration and booking information
+- Visual service gallery
+
+### 📋 **Booking Appointment Interface**
+
+![Booking Interface Screenshot](screenshots/booking-interface.png)
+
+- Interactive appointment booking form
+- Real-time availability calendar
+- Service selection with pricing
+- Customer information capture
+- Booking confirmation flow
 
 ### 📅 **Appointment Management**
+
+![Appointment Dashboard Screenshot](screenshots/appointment-dashboard.png)
+
 - Professional appointment dashboard
 - Easy cancellation and rescheduling
 - Status tracking and history
 - Mobile-optimized interface
 
+### 📞 **Contact & Location**
+
+![Contact Page Screenshot](screenshots/contact-page.png)
+
+- Integrated Google Maps location
+- Business contact information
+- Operating hours display
+- Direct communication options
+
 ### 💬 **AI Chatbot Integration**
+
+![Chatbot Screenshot](screenshots/chatbot-interface.png)
+
 - Intelligent customer support
 - Natural conversation flow
 - Business-specific knowledge base
@@ -194,18 +248,21 @@ const API_BASE_URL = 'http://localhost:8000/api';
 ## 🏗️ Architecture & Design Patterns
 
 ### **Frontend Architecture**
+
 - **Component-based design** with reusable UI elements
 - **Context API** for global state management
 - **Custom hooks** for business logic separation
 - **Responsive design** with mobile-first approach
 
 ### **Backend Architecture**
+
 - **RESTful API design** with clear endpoints
 - **Model-View-Controller** pattern implementation
 - **Authentication middleware** for secure access
 - **CORS configuration** for frontend integration
 
 ### **Database Design**
+
 - **Normalized database schema** for data integrity
 - **Efficient relationships** between users, appointments, and services
 - **Scalable model structure** for future enhancements
@@ -215,21 +272,25 @@ const API_BASE_URL = 'http://localhost:8000/api';
 ## 🎯 Key Technical Achievements
 
 ### **Full-Stack Integration**
+
 - Seamless communication between React frontend and Django backend
 - Proper authentication flow with session management
 - Real-time data synchronization and updates
 
 ### **AI Implementation**
+
 - Successfully integrated OpenAI GPT-4 for intelligent customer support
 - Implemented fallback mechanisms for reliability
 - Created context-aware conversational experiences
 
 ### **Modern UI/UX**
+
 - Designed and implemented a professional, modern interface
 - Created smooth animations and micro-interactions
 - Ensured accessibility and responsive design principles
 
 ### **Business Logic**
+
 - Implemented complex appointment scheduling logic
 - Created conflict prevention and availability checking
 - Built comprehensive user management system
@@ -239,6 +300,7 @@ const API_BASE_URL = 'http://localhost:8000/api';
 ## 🔮 Future Enhancements
 
 ### **Planned Features**
+
 - **Multi-barber support** - Scale to multiple barbers and locations
 - **Payment integration** - Stripe/PayPal for online payments
 - **SMS notifications** - Appointment reminders and confirmations
@@ -247,6 +309,7 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - **Review system** - Customer feedback and ratings
 
 ### **Technical Improvements**
+
 - **PostgreSQL migration** - Production-ready database
 - **Docker containerization** - Simplified deployment
 - **CI/CD pipeline** - Automated testing and deployment
@@ -260,6 +323,7 @@ const API_BASE_URL = 'http://localhost:8000/api';
 **Built with passion by a full-stack developer who understands both technical excellence and user experience.**
 
 ### **Skills Demonstrated**
+
 - ✅ **Full-Stack Development** - End-to-end application development
 - ✅ **Modern Frontend** - React, modern JavaScript, responsive design
 - ✅ **Backend Development** - Django, RESTful APIs, database design
@@ -269,6 +333,7 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - ✅ **Code Quality** - Clean, maintainable, scalable code
 
 ### **Why This Project Stands Out**
+
 1. **Real-world Application** - Solves actual business problems
 2. **Modern Technology Stack** - Uses current industry standards
 3. **Professional Design** - Production-ready user interface
@@ -299,6 +364,7 @@ This project follows security best practices:
 - **Production Ready**: Environment-based configuration for different deployment stages
 
 ### Setting Up Your Environment:
+
 1. Copy `.env.example` to `.env`
 2. Replace placeholder values with your actual API keys
 3. Never commit `.env` files to GitHub
@@ -316,6 +382,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ If you found this project impressive, please give it a star! ⭐**
 
-*Built with ❤️ and lots of ☕ by a passionate full-stack developer*
+_Built with ❤️ and lots of ☕ by a passionate full-stack developer_
 
 </div>
