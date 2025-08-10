@@ -13,7 +13,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0+-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)](https://openai.com/)
 
-[🚀 Live Demo](#) • [📖 Documentation](#features) • [🛠️ Installation](#installation) • [🎯 Features](#features)
+[🚀 Live Demo](https://trimly.vercel.app) • [📖 Documentation](https://github.com/YameenAlsaaidah/trimly#features) • [🛠️ Installation](#installation) • [🎯 Features](#features)
 
 </div>
 
@@ -108,7 +108,7 @@ Transform the barbershop experience by creating an intuitive, professional platf
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/trimly.git
+git clone https://github.com/Yameen05/trimly.git
 cd trimly
 ```
 
@@ -152,8 +152,8 @@ npm run dev
 cp .env.example .env
 
 # Edit .env file and add your actual API keys
-# OPENAI_API_KEY=your-actual-openai-api-key-here
-# SECRET_KEY=your-django-secret-key-here
+OPENAI_API_KEY=sk-xxxxxx
+SECRET_KEY=django-insecure-xxxxxx
 
 # Frontend: Ensure API base URL matches your Django server
 const API_BASE_URL = 'http://localhost:8000/api';
@@ -282,10 +282,10 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 **Let's connect and discuss how this project demonstrates my capabilities as a full-stack developer!**
 
-- 📧 **Email**: [your.email@example.com](mailto:your.email@example.com)
-- 💼 **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- 🐙 **GitHub**: [Your GitHub Profile](https://github.com/yourusername)
-- 🌐 **Portfolio**: [Your Portfolio Website](https://yourportfolio.com)
+- 📧 Email: [yameenrizeq@gmail.com](mailto:yameenrizeq@gmail.com)
+- 💼 LinkedIn: [Yameen Alsaaidah](https://linkedin.com/in/yameen-alsaaidah)
+- 🐙 GitHub: [Yameen05](https://github.com/Yameen05)
+- 🌐 Portfolio: [yameenrizeq.com](https://yameenrizeq.com)
 
 ---
 
