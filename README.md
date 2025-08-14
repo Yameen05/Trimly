@@ -6,12 +6,14 @@
 
 **A sophisticated, full-stack web application revolutionizing the barbershop booking experience**
 
-[![React](https://img.shields.io/badge/React-18.0+-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+[![React](https://img.shields.io/badge/React-19.0+-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org/)
 [![Django](https://img.shields.io/badge/Django-5.1+-092E20?style=flat-square&logo=django)](https://djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python)](https://python.org/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript)](https://javascript.info/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0+-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat-square&logo=docker)](https://docker.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-336791?style=flat-square&logo=postgresql)](https://postgresql.org/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)](https://openai.com/)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=flat-square&logo=github-actions)](https://github.com/features/actions)
 
 
 </div>
@@ -81,31 +83,42 @@ Transform the barbershop experience by creating an intuitive, professional platf
 
 ### **Frontend**
 
-- **React 18** - Modern component-based architecture
-- **React Router** - Client-side routing and navigation
+- **React 19** - Latest component-based architecture with concurrent features
+- **TypeScript** - Type-safe development with compile-time error checking
+- **React Router DOM** - Client-side routing and navigation
 - **Axios** - HTTP client for API communication
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Fast build tool and development server
+- **Tailwind CSS 4** - Utility-first CSS framework with modern features
+- **Vite** - Lightning-fast build tool and development server
 
 ### **Backend**
 
 - **Django 5.1** - Robust Python web framework
-- **Django REST Framework** - API development
-- **SQLite** - Lightweight database for development
+- **Django REST Framework** - Professional API development
+- **Multi-Database Support** - PostgreSQL, MySQL, and SQLite compatibility
+- **Swagger/OpenAPI** - Comprehensive API documentation
 - **Django CORS Headers** - Cross-origin resource sharing
+
+### **Database & Storage**
+
+- **PostgreSQL 15** - Production-ready relational database
+- **MySQL 8.0** - Alternative database support
+- **SQLite** - Lightweight database for development
+- **Multi-Database Routing** - Intelligent database selection
+
+### **DevOps & CI/CD**
+
+- **Docker & Docker Compose** - Containerized development and deployment
+- **GitHub Actions** - Automated CI/CD pipeline
+- **Code Quality Tools** - ESLint, Prettier, Black, Flake8
+- **Security Scanning** - Bandit, Safety vulnerability detection
+- **Automated Testing** - Backend and frontend test automation
 
 ### **AI & Integration**
 
-- **OpenAI GPT-4** - Advanced conversational AI
+- **OpenAI GPT-4** - Advanced conversational AI with fallback systems
 - **Google Maps API** - Location services and mapping
 - **Session Authentication** - Secure user management
-
-### **Development Tools**
-
-- **Git** - Version control
-- **Modern ES6+** - Latest JavaScript features
-- **Component-based Architecture** - Scalable frontend structure
-- **RESTful API Design** - Clean backend architecture
+- **Environment-based Configuration** - Secure secrets management
 
 ---
 
@@ -113,8 +126,9 @@ Transform the barbershop experience by creating an intuitive, professional platf
 
 ### Prerequisites
 
-- **Node.js** (v16 or higher)
-- **Python** (v3.8 or higher)
+- **Node.js** (v18 or higher)
+- **Python** (v3.11 or higher)
+- **Docker & Docker Compose** (for containerized development)
 - **Git**
 
 ### 1. Clone the Repository
@@ -170,11 +184,31 @@ cp .env.example .env
 OPENAI_API_KEY=sk-xxxxxx
 SECRET_KEY=django-insecure-xxxxxx
 
-# Frontend: Ensure API base URL matches your Django server
-const API_BASE_URL = 'http://localhost:8000/api';
+# Database Configuration (optional - defaults to SQLite)
+# DATABASE_URL=postgresql://trimly_user:trimly_password@localhost:5432/trimly_db
+# MYSQL_URL=mysql://trimly_user:trimly_password@localhost:3306/trimly_db
 ```
 
 **⚠️ Important: Never commit your `.env` file to version control!**
+
+### 5. Docker Development (Recommended)
+
+```bash
+# Start all services with Docker Compose
+docker-compose up --build
+
+# This will start:
+# - PostgreSQL database on port 5432
+# - MySQL database on port 3306  
+# - Django backend on port 8000
+# - React frontend on port 5173
+```
+
+### 6. API Documentation
+
+Once the backend is running, visit:
+- **Swagger UI**: http://localhost:8000/swagger/
+- **ReDoc**: http://localhost:8000/redoc/
 
 ---
 
@@ -317,11 +351,11 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 ### **Technical Improvements**
 
-- **PostgreSQL migration** - Production-ready database
-- **Docker containerization** - Simplified deployment
-- **CI/CD pipeline** - Automated testing and deployment
-- **Performance optimization** - Caching and query optimization
-- **Security enhancements** - Advanced authentication methods
+- **Redis caching** - Performance optimization and session storage
+- **Kubernetes deployment** - Container orchestration for production
+- **AWS/Azure integration** - Cloud deployment and scaling
+- **Performance monitoring** - Application performance insights
+- **Advanced security** - OAuth2, JWT tokens, rate limiting
 
 ---
 
@@ -332,12 +366,14 @@ const API_BASE_URL = 'http://localhost:8000/api';
 ### **Skills Demonstrated**
 
 - ✅ **Full-Stack Development** - End-to-end application development
-- ✅ **Modern Frontend** - React, modern JavaScript, responsive design
-- ✅ **Backend Development** - Django, RESTful APIs, database design
+- ✅ **Modern Frontend** - React 19, TypeScript, responsive design
+- ✅ **Backend Development** - Django, RESTful APIs, multi-database architecture
+- ✅ **DevOps & CI/CD** - Docker, GitHub Actions, automated testing
 - ✅ **AI Integration** - OpenAI GPT-4, conversational interfaces
-- ✅ **UI/UX Design** - Modern design principles, user-centered approach
-- ✅ **Problem Solving** - Complex business logic implementation
-- ✅ **Code Quality** - Clean, maintainable, scalable code
+- ✅ **Database Design** - PostgreSQL, MySQL, database routing
+- ✅ **API Documentation** - Swagger/OpenAPI, professional documentation
+- ✅ **Code Quality** - TypeScript, linting, formatting, security scanning
+- ✅ **Container Orchestration** - Docker Compose, multi-service architecture
 
 ### **Why This Project Stands Out**
 
