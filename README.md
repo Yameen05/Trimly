@@ -191,7 +191,6 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 
 
-<<<<<<< HEAD
 ### ℹ️ **About Page**
 
 
@@ -216,7 +215,8 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - Service selection with pricing
 - Customer information capture
 - Booking confirmation flow
-=======
+
+  
 ### 📋 **Service Booking Interface**
 - Clean service catalog with pricing
 - Interactive booking modal with real-time availability
@@ -224,7 +224,6 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - Seamless user experience flow
 
 
->>>>>>> c7b78467d54df9245afb580852bde2176f960c90
 
 ### 📅 **Appointment Management**
 
