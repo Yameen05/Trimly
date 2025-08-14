@@ -13,11 +13,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0+-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)](https://openai.com/)
 
-<<<<<<< HEAD
-=======
-[🚀 Live Demo](https://trimly.vercel.app) • [📖 Documentation](https://github.com/YameenAlsaaidah/trimly#features) • [🛠️ Installation](#installation) • [🎯 Features](#features)
 
->>>>>>> c7b78467d54df9245afb580852bde2176f960c90
 </div>
 
 ---
@@ -186,25 +182,18 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 ### 🏠 **Modern Homepage**
 
-![Homepage Screenshot](screenshots/homepage.png)
+
 
 - Hero section with compelling call-to-action
 - Feature highlights with smooth animations
 - Professional business information display
 - Integrated location services
-<img width="3600" height="1888" alt="image" src="https://github.com/user-attachments/assets/8f311a2c-1f12-4fd0-a2ef-c49acea8a5fb" />
-
-<img width="3562" height="1876" alt="image" src="https://github.com/user-attachments/assets/86c6254a-4427-48cb-92fd-1b9e37a901c3" />
-
-<img width="3576" height="1866" alt="image" src="https://github.com/user-attachments/assets/a2c8166d-a998-42c6-9181-e4efa84fe062" />
-
 
 
 
 <<<<<<< HEAD
 ### ℹ️ **About Page**
 
-![About Page Screenshot](screenshots/about-page.png)
 
 - Professional barber introduction and background
 - Business story and mission statement
@@ -213,7 +202,6 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 ### 🛍️ **Services Showcase**
 
-![Services Page Screenshot](screenshots/services-page.png)
 
 - Comprehensive service catalog with detailed descriptions
 - Professional pricing structure
@@ -222,7 +210,6 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 ### 📋 **Booking Appointment Interface**
 
-![Booking Interface Screenshot](screenshots/booking-interface.png)
 
 - Interactive appointment booking form
 - Real-time availability calendar
@@ -235,31 +222,20 @@ const API_BASE_URL = 'http://localhost:8000/api';
 - Interactive booking modal with real-time availability
 - Comprehensive appointment summary
 - Seamless user experience flow
-<img width="3560" height="1888" alt="image" src="https://github.com/user-attachments/assets/4ffee23d-d8ad-49a5-a1b0-c18eac110434" />
-
-<img width="3574" height="1778" alt="image" src="https://github.com/user-attachments/assets/9ce186bf-0436-4d8a-bd6a-8b68f5f94a8e" />
 
 
 >>>>>>> c7b78467d54df9245afb580852bde2176f960c90
 
 ### 📅 **Appointment Management**
 
-![Appointment Dashboard Screenshot](screenshots/appointment-dashboard.png)
 
 - Professional appointment dashboard
 - Easy cancellation and rescheduling
 - Status tracking and history
 - Mobile-optimized interface
-<img width="3596" height="1874" alt="image" src="https://github.com/user-attachments/assets/88cd5e41-8524-40c7-864f-c962193b0531" />
-
-<img width="3578" height="1882" alt="image" src="https://github.com/user-attachments/assets/398ab069-67fb-4bd8-bb28-a31e47e13572" />
-
-<img width="3600" height="1844" alt="image" src="https://github.com/user-attachments/assets/9760db2a-03bb-48a1-a894-2bbcb9957e74" />
-
 
 ### 📞 **Contact & Location**
 
-![Contact Page Screenshot](screenshots/contact-page.png)
 
 - Integrated Google Maps location
 - Business contact information
@@ -268,22 +244,11 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 ### 💬 **AI Chatbot Integration**
 
-![Chatbot Screenshot](screenshots/chatbot-interface.png)
 
 - Intelligent customer support
 - Natural conversation flow
 - Business-specific knowledge base
 - 24/7 availability with fallback responses
-<img width="664" height="938" alt="image" src="https://github.com/user-attachments/assets/f75e6768-6a09-4838-935d-daf5b07f508a" />
-
-<img width="668" height="798" alt="image" src="https://github.com/user-attachments/assets/1b044b25-8899-42e5-943a-1715b6505782" />
-
-<img width="3600" height="1908" alt="image" src="https://github.com/user-attachments/assets/87b7cd9f-dc44-4805-8c4c-039f7be89e01" />
-
-<img width="3600" height="1888" alt="image" src="https://github.com/user-attachments/assets/6b2fe045-46df-4b96-a366-ce2a3bc7a649" />
-
-<img width="3600" height="1884" alt="image" src="https://github.com/user-attachments/assets/2736bd8e-23c9-446a-90dc-4df9d10c0353" />
-
 
 
 ---
