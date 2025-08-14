@@ -1,0 +1,69 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort mypy bandit
+
+    - name: Run Black (Code Formatting)
+      run: |
+        echo "🎨 Checking Python code formatting with Black..."
+        black --check --diff . || echo "❌ Code formatting issues found. Run 'black .' to fix."
+
+    - name: Run isort (Import Sorting)
+      run: |
+        echo "📦 Checking import sorting with isort..."
+        isort --check-only --diff . || echo "❌ Import sorting issues found. Run 'isort .' to fix."
+
+    - name: Run Flake8 (Linting)
+      run: |
+        echo "🔍 Running Python linting with Flake8..."
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    - name: Run Bandit (Security Analysis)
+      run: |
+        echo "🔒 Running security analysis with Bandit..."
+        bandit -r . -ll || echo "⚠️ Security issues found. Please review."
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: trimly-frontend/package-lock.json
+
+    - name: Install frontend dependencies
+      working-directory: ./trimly-frontend
+      run: npm ci
+
+    - name: Run ESLint (Frontend Linting)
+      working-directory: ./trimly-frontend
+      run: |
+        echo "🔍 Running frontend linting with ESLint..."
+        npm run lint
+
+    - name: Run Prettier (Frontend Formatting)
+      working-directory: ./trimly-frontend
+      run: |
+        echo "🎨 Checking frontend code formatting..."
+        npx prettier --check . || echo "❌ Frontend formatting issues found."

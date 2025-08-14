@@ -1,23 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
-const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+// TypeScript interfaces - Define the shape of your data
+interface Message {
+  id: number;
+  text: string;
+  isBot: boolean;
+  timestamp: Date;
+}
+
+interface ChatbotResponse {
+  response: string;
+  success: boolean;
+  powered_by?: string;
+  fallback?: boolean;
+  error?: string;
+}
+
+const Chatbot: React.FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hi! I'm Trimly's AI assistant. I can help you with questions about Ali's services, pricing, hours, location, and booking appointments. What would you like to know?",
+      text: "Hey there! 👋 I'm Trimly's AI assistant, here to help you with Ali's barbershop! I can tell you about services, pricing, hours, or help you book an appointment. What can I help you with today?",
       isBot: true,
       timestamp: new Date()
     }
   ]);
-  const [inputText, setInputText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef(null);
+  const [inputText, setInputText] = useState<string>('');
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const API_BASE_URL = 'http://localhost:8000/api';
+  const API_BASE_URL: string = 'http://localhost:8000/api';
 
-  const scrollToBottom = () => {
+  const scrollToBottom = (): void => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -25,9 +41,9 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const getGPTResponse = async (userMessage) => {
+  const getGPTResponse = async (userMessage: string): Promise<string> => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/chatbot/`, {
+      const response = await axios.post<ChatbotResponse>(`${API_BASE_URL}/chatbot/`, {
         message: userMessage
       }, { withCredentials: true });
       
@@ -39,33 +55,67 @@ const Chatbot = () => {
     }
   };
 
-  const getFallbackResponse = (input) => {
+  const getFallbackResponse = (input: string): string => {
     const text = input.toLowerCase();
     
-    if (text.includes('service') || text.includes('haircut') || text.includes('beard')) {
-      return "We offer Classic Haircut ($35), Beard Trim ($15), and Haircut + Beard ($50). Would you like to book an appointment?";
-    }
-    if (text.includes('price') || text.includes('cost') || text.includes('how much')) {
-      return "Our prices are: Classic Haircut $35, Beard Trim $15, Haircut + Beard $50. All services include consultation!";
-    }
-    if (text.includes('hour') || text.includes('open') || text.includes('close')) {
-      return "We're open Monday-Saturday 9:00 AM - 6:00 PM, closed Sunday. Call us at (980) 318-4863!";
-    }
-    if (text.includes('location') || text.includes('address') || text.includes('where')) {
-      return "We're located at 6721 E Independence Blvd, Charlotte, NC 28212. Phone: (980) 318-4863";
-    }
-    if (text.includes('book') || text.includes('appointment')) {
-      return "To book: Click 'Book Appointment' in the menu, choose your service, select date/time, and confirm!";
+    // Greeting responses
+    if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
+      return "Hey there! 👋 Welcome to Trimly! I'm here to help you with Ali's barbershop. What can I help you with today?";
     }
     
-    return "I can help you with services, pricing, hours, location, and booking appointments. What would you like to know?";
+    // Thank you responses
+    if (text.includes('thank') || text.includes('thanks')) {
+      return "You're very welcome! 😊 Anything else I can help you with about booking with Ali?";
+    }
+    
+    // Services and pricing
+    if (text.includes('service') || text.includes('haircut') || text.includes('beard') || text.includes('cut')) {
+      return "Ali offers amazing services! ✂️ Classic Haircut ($35), Beard Trim ($15), or the popular Haircut + Beard combo ($50). All include consultation and styling. Ready to book?";
+    }
+    
+    if (text.includes('price') || text.includes('cost') || text.includes('how much') || text.includes('expensive')) {
+      return "Great value for expert work! 💰 Classic Haircut is $35, Beard Trim $15, or get both for $50. All services include wash and styling. Want to schedule?";
+    }
+    
+    // Hours and availability
+    if (text.includes('hour') || text.includes('open') || text.includes('close') || text.includes('time')) {
+      return "We're open Monday-Saturday 9:00 AM - 6:00 PM, closed Sunday. 🕘 You can book online or call (980) 318-4863!";
+    }
+    
+    // Location
+    if (text.includes('location') || text.includes('address') || text.includes('where') || text.includes('find')) {
+      return "You'll find us at 6721 E Independence Blvd, Charlotte, NC 28212! 📍 Easy to find with plenty of parking. Call (980) 318-4863 if you need directions!";
+    }
+    
+    // Booking
+    if (text.includes('book') || text.includes('appointment') || text.includes('schedule')) {
+      return "Perfect! 📅 You can book online through our website or call Ali directly at (980) 318-4863. Which service interests you most?";
+    }
+    
+    // Payment
+    if (text.includes('pay') || text.includes('payment') || text.includes('cash') || text.includes('card')) {
+      return "We make payment easy! 💳 Cash, all cards, Zelle, Apple Pay, Cash App, and Venmo accepted. No worries about payment methods!";
+    }
+    
+    // Cancellation
+    if (text.includes('cancel') || text.includes('reschedule') || text.includes('change')) {
+      return "No problem! Just give us 2+ hours notice and there's no fee. 📞 Call (980) 318-4863 to reschedule or cancel.";
+    }
+    
+    // Contact
+    if (text.includes('contact') || text.includes('phone') || text.includes('call')) {
+      return "Easy to reach us! 📞 Call (980) 318-4863 or visit us at 6721 E Independence Blvd, Charlotte, NC 28212. Ali's always happy to chat!";
+    }
+    
+    // Default response
+    return "I'm here to help with anything about Ali's barbershop! ✂️ Ask me about services, pricing, hours, booking, or anything else. What would you like to know?";
   };
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = async (): Promise<void> => {
     if (!inputText.trim()) return;
 
     // Add user message
-    const userMessage = {
+    const userMessage: Message = {
       id: messages.length + 1,
       text: inputText,
       isBot: false,
@@ -80,7 +130,7 @@ const Chatbot = () => {
       const botResponseText = await getGPTResponse(inputText);
       
       setTimeout(() => {
-        const botResponse = {
+        const botResponse: Message = {
           id: messages.length + 2,
           text: botResponseText,
           isBot: true,
@@ -92,9 +142,9 @@ const Chatbot = () => {
       
     } catch (error) {
       setTimeout(() => {
-        const errorResponse = {
+        const errorResponse: Message = {
           id: messages.length + 2,
-          text: "I'm having trouble connecting right now. Please try asking again or call us at (980) 318-4863.",
+          text: "Oops! I'm having a connection issue right now. 😅 But I can still help! Try asking again, or call Ali directly at (980) 318-4863 for immediate assistance!",
           isBot: true,
           timestamp: new Date()
         };
@@ -106,21 +156,22 @@ const Chatbot = () => {
     setInputText('');
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       handleSendMessage();
     }
   };
 
-  const quickQuestions = [
-    "What services do you offer?",
-    "What are your hours?",
+  const quickQuestions: string[] = [
+    "What services does Ali offer?",
     "How much does a haircut cost?",
-    "Where are you located?",
-    "How do I book an appointment?"
+    "What are your hours?",
+    "How do I book an appointment?",
+    "Where are you located?"
   ];
 
-  const handleQuickQuestion = (question) => {
+  const handleQuickQuestion = (question: string): void => {
     setInputText(question);
     setTimeout(() => handleSendMessage(), 100);
   };
@@ -173,7 +224,7 @@ const Chatbot = () => {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
-            {messages.map((message) => (
+            {messages.map((message: Message) => (
               <div
                 key={message.id}
                 className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
@@ -211,7 +262,7 @@ const Chatbot = () => {
             <div className="px-4 pb-2">
               <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
               <div className="flex flex-wrap gap-1">
-                {quickQuestions.slice(0, 3).map((question, index) => (
+                {quickQuestions.slice(0, 3).map((question: string, index: number) => (
                   <button
                     key={index}
                     onClick={() => handleQuickQuestion(question)}
@@ -230,8 +281,8 @@ const Chatbot = () => {
               <input
                 type="text"
                 value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.target.value)}
+                onKeyDown={handleKeyDown}
                 placeholder="Ask me anything..."
                 disabled={isTyping}
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm disabled:opacity-50"

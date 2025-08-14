@@ -21,3 +21,14 @@ sqlparse==0.5.3
 tqdm==4.67.1
 typing-inspection==0.4.1
 typing_extensions==4.14.1
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+drf-yasg==1.21.7
+mysqlclient==2.2.4
+
+# Development and CI/CD tools
+black==24.1.1
+flake8==7.0.0
+isort==5.13.2
+bandit==1.7.6
+safety==3.0.1
