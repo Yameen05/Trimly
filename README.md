@@ -15,7 +15,6 @@
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=flat-square&logo=openai)](https://openai.com/)
 [![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=flat-square&logo=github-actions)](https://github.com/features/actions)
 
-
 </div>
 
 ---
@@ -199,7 +198,7 @@ docker-compose up --build
 
 # This will start:
 # - PostgreSQL database on port 5432
-# - MySQL database on port 3306  
+# - MySQL database on port 3306
 # - Django backend on port 8000
 # - React frontend on port 5173
 ```
@@ -207,6 +206,7 @@ docker-compose up --build
 ### 6. API Documentation
 
 Once the backend is running, visit:
+
 - **Swagger UI**: http://localhost:8000/swagger/
 - **ReDoc**: http://localhost:8000/redoc/
 
@@ -216,17 +216,12 @@ Once the backend is running, visit:
 
 ### 🏠 **Modern Homepage**
 
-
-
 - Hero section with compelling call-to-action
 - Feature highlights with smooth animations
 - Professional business information display
 - Integrated location services
 
-
-
 ### ℹ️ **About Page**
-
 
 - Professional barber introduction and background
 - Business story and mission statement
@@ -235,7 +230,6 @@ Once the backend is running, visit:
 
 ### 🛍️ **Services Showcase**
 
-
 - Comprehensive service catalog with detailed descriptions
 - Professional pricing structure
 - Service duration and booking information
@@ -243,24 +237,20 @@ Once the backend is running, visit:
 
 ### 📋 **Booking Appointment Interface**
 
-
 - Interactive appointment booking form
 - Real-time availability calendar
 - Service selection with pricing
 - Customer information capture
 - Booking confirmation flow
 
-  
 ### 📋 **Service Booking Interface**
+
 - Clean service catalog with pricing
 - Interactive booking modal with real-time availability
 - Comprehensive appointment summary
 - Seamless user experience flow
 
-
-
 ### 📅 **Appointment Management**
-
 
 - Professional appointment dashboard
 - Easy cancellation and rescheduling
@@ -269,7 +259,6 @@ Once the backend is running, visit:
 
 ### 📞 **Contact & Location**
 
-
 - Integrated Google Maps location
 - Business contact information
 - Operating hours display
@@ -277,12 +266,10 @@ Once the backend is running, visit:
 
 ### 💬 **AI Chatbot Integration**
 
-
 - Intelligent customer support
 - Natural conversation flow
 - Business-specific knowledge base
 - 24/7 availability with fallback responses
-
 
 ---
 
