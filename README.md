@@ -266,6 +266,8 @@ Once the backend is running, visit:
 - Customer information capture
 - Booking confirmation flow
 
+<img width="1800" height="936" alt="Screenshot 2025-08-14 at 7 22 49 PM" src="https://github.com/user-attachments/assets/18261c30-5231-418e-9030-34436a9f009e" />
+
   
 ### 📋 **Service Booking Interface**
 - Clean service catalog with pricing
@@ -282,7 +284,7 @@ Once the backend is running, visit:
 - Status tracking and history
 - Mobile-optimized interface
 
-<img width="1800" height="936" alt="Screenshot 2025-08-14 at 7 22 49 PM" src="https://github.com/user-attachments/assets/18261c30-5231-418e-9030-34436a9f009e" />
+<img width="1800" height="943" alt="Screenshot 2025-08-15 at 12 30 23 AM" src="https://github.com/user-attachments/assets/7a5eee51-df9c-4ea4-89b1-9e377a11717e" />
 
 
 ### 📞 **Contact & Location**
