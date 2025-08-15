@@ -268,14 +268,6 @@ Once the backend is running, visit:
 
 <img width="1800" height="936" alt="Screenshot 2025-08-14 at 7 22 49 PM" src="https://github.com/user-attachments/assets/18261c30-5231-418e-9030-34436a9f009e" />
 
-  
-### 📋 **Service Booking Interface**
-- Clean service catalog with pricing
-- Interactive booking modal with real-time availability
-- Comprehensive appointment summary
-- Seamless user experience flow
-
-
 
 ### 📅 **Appointment Management**
 
