@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils import timezone
 from .models import Appointment, Barber, Service
 from datetime import datetime, timedelta
 
@@ -43,8 +44,7 @@ class AppointmentForm(forms.ModelForm):
             ).exists():
                 raise forms.ValidationError("This time slot is already booked.")
             # Check if appointment is in the past
-            from datetime import datetime
-            appointment_datetime = datetime.combine(date, time)
-            if appointment_datetime <= datetime.now():
+            appointment_datetime = timezone.make_aware(datetime.combine(date, time))
+            if appointment_datetime <= timezone.now():
                 raise forms.ValidationError("Cannot book appointments in the past.")
         return cleaned_data

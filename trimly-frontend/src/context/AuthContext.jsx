@@ -34,32 +34,36 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (username, password) => {
-    const res = await axios.post(
-      `${API_BASE}/login/`,
-      { username, password },
-      { withCredentials: true }
-    ); 
-    if (res.data.success) {
-      setUser({ username: res.data.username });
-      return { success: true };
-    } else {
-      setUser(null);
+    try {
+      const res = await axios.post(
+        `${API_BASE}/login/`,
+        { username, password },
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        setUser({ username: res.data.username });
+        return { success: true };
+      }
       return { success: false, error: res.data.error };
+    } catch (err) {
+      return { success: false, error: err.response?.data?.error || 'Login failed' };
     }
   };
 
   const signup = async (username, email, password) => {
-    const res = await axios.post(
-      `${API_BASE}/signup/`,
-      { username, email, password },
-      { withCredentials: true }
-    );
-    if (res.data.success) {
-      setUser({ username: res.data.username });
-      return { success: true };
-    } else {
-      setUser(null);
+    try {
+      const res = await axios.post(
+        `${API_BASE}/signup/`,
+        { username, email, password },
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        setUser({ username: res.data.username });
+        return { success: true };
+      }
       return { success: false, error: res.data.error };
+    } catch (err) {
+      return { success: false, error: err.response?.data?.error || 'Signup failed' };
     }
   };
 

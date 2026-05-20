@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import TrimlyLogo from '../images/Trimly.png';
 
 const Home = () => {
   const { user } = useAuth();
@@ -13,6 +14,16 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
           <div className="text-center">
             <div className="mb-8">
+              {/* Logo */}
+              <div className="mb-8">
+                <div className="w-32 h-32 mx-auto mb-6  rounded-full border-blue-400 border-opacity-30 flex items-center justify-center backdrop-blur-sm">
+                  <img 
+                    src={TrimlyLogo} 
+                    alt="Trimly Logo" 
+                    className="w-24 h-24 object-contain rounded-full"
+                  />
+                </div>
+              </div>
               <div className="inline-flex items-center px-4 py-2 bg-blue-500 bg-opacity-20 rounded-full mb-6 border border-blue-400 border-opacity-30">
                 <span className="text-blue-300 text-sm font-semibold">✂ PREMIUM BARBERSHOP EXPERIENCE</span>
               </div>

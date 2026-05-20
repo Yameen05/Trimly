@@ -70,8 +70,12 @@ const Appointments = () => {
   };
 
   const formatDate = (dateString) => {
-    // Add T00:00:00 to prevent timezone issues with date-only strings
-    return new Date(dateString + 'T00:00:00').toLocaleDateString('en-US', {
+    // Append T00:00:00 only for bare date strings (YYYY-MM-DD) to avoid timezone shifts.
+    // Full datetime strings (ISO 8601 with T) are parsed directly.
+    const normalized = /^\d{4}-\d{2}-\d{2}$/.test(dateString)
+      ? dateString + 'T00:00:00'
+      : dateString;
+    return new Date(normalized).toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -215,7 +219,7 @@ const Appointments = () => {
                 <div className="mt-4 pt-4 border-t border-gray-200">
                   <div className="flex items-center justify-between text-sm text-gray-600">
                     <span>Appointment ID: #{appointment.id}</span>
-                    <span>Booked on: {formatDate(appointment.created_at || new Date())}</span>
+                    <span>Booked on: {appointment.created_at ? formatDate(appointment.created_at) : 'N/A'}</span>
                   </div>
                 </div>
               </div>

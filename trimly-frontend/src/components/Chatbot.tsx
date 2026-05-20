@@ -30,6 +30,7 @@ const Chatbot: React.FC = () => {
   const [inputText, setInputText] = useState<string>('');
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const nextIdRef = useRef<number>(2);
 
   const API_BASE_URL: string = 'http://localhost:8000/api';
 
@@ -111,39 +112,37 @@ const Chatbot: React.FC = () => {
     return "I'm here to help with anything about Ali's barbershop! ✂️ Ask me about services, pricing, hours, booking, or anything else. What would you like to know?";
   };
 
-  const handleSendMessage = async (): Promise<void> => {
-    if (!inputText.trim()) return;
+  const handleSendMessage = async (overrideText?: string): Promise<void> => {
+    const textToSend = overrideText ?? inputText;
+    if (!textToSend.trim()) return;
 
-    // Add user message
     const userMessage: Message = {
-      id: messages.length + 1,
-      text: inputText,
+      id: nextIdRef.current++,
+      text: textToSend,
       isBot: false,
       timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
+    setInputText('');
     setIsTyping(true);
 
-    // Get GPT response
     try {
-      const botResponseText = await getGPTResponse(inputText);
-      
+      const botResponseText = await getGPTResponse(textToSend);
       setTimeout(() => {
         const botResponse: Message = {
-          id: messages.length + 2,
+          id: nextIdRef.current++,
           text: botResponseText,
           isBot: true,
           timestamp: new Date()
         };
         setMessages(prev => [...prev, botResponse]);
         setIsTyping(false);
-      }, 800); // Simulate typing delay
-      
+      }, 800);
     } catch (error) {
       setTimeout(() => {
         const errorResponse: Message = {
-          id: messages.length + 2,
+          id: nextIdRef.current++,
           text: "Oops! I'm having a connection issue right now. 😅 But I can still help! Try asking again, or call Ali directly at (980) 318-4863 for immediate assistance!",
           isBot: true,
           timestamp: new Date()
@@ -152,14 +151,12 @@ const Chatbot: React.FC = () => {
         setIsTyping(false);
       }, 800);
     }
-
-    setInputText('');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSendMessage();
+      handleSendMessage(undefined);
     }
   };
 
@@ -172,8 +169,7 @@ const Chatbot: React.FC = () => {
   ];
 
   const handleQuickQuestion = (question: string): void => {
-    setInputText(question);
-    setTimeout(() => handleSendMessage(), 100);
+    handleSendMessage(question);
   };
 
   return (
@@ -288,7 +284,7 @@ const Chatbot: React.FC = () => {
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm disabled:opacity-50"
               />
               <button
-                onClick={handleSendMessage}
+                onClick={() => handleSendMessage(undefined)}
                 disabled={!inputText.trim() || isTyping}
                 className="bg-gradient-to-br from-blue-500 to-blue-600 text-white px-4 py-2 rounded-xl hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold shadow-lg"
               >

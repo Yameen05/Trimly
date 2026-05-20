@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Trimly Logo](https://img.shields.io/badge/Trimly-Premium%20Barbershop%20Booking-blue?style=for-the-badge&logo=scissors)
+![Trimly Logo](trimly-frontend/src/images/Trimly.png)
 
 **A sophisticated, full-stack web application revolutionizing the barbershop booking experience**
 

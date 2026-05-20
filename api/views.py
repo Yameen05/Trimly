@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import Appointment, Barber, Service
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
 from django.middleware.csrf import get_token
@@ -67,7 +67,9 @@ def get_services(request):
 
 @api_view(['GET'])
 def get_appointments(request):
-    appointments = Appointment.objects.all().values()
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication required.'}, status=401)
+    appointments = Appointment.objects.filter(customer=request.user).values()
     return Response(list(appointments))
 
 
@@ -143,6 +145,13 @@ def book_appointment(request):
     notes = data.get('notes', '')
 
     try:
+        appt_date = datetime.strptime(data['appointment_date'], '%Y-%m-%d').date()
+    except (ValueError, KeyError):
+        return Response({'error': 'Invalid appointment_date format. Use YYYY-MM-DD.'}, status=400)
+    if appt_date < date.today():
+        return Response({'error': 'Cannot book appointments in the past.'}, status=400)
+
+    try:
         appointment = Appointment.objects.create(
             customer=request.user,
             barber=ali,
@@ -205,7 +214,10 @@ def get_available_times(request):
         base_times.append(current_time.time())
         current_time += timedelta(hours=1)
 
-    ali = Barber.objects.get(name="Ali")
+    try:
+        ali = Barber.objects.get(name="Ali")
+    except Barber.DoesNotExist:
+        return Response({'slots': []})
     booked_times = set(Appointment.objects.filter(
         barber=ali,
         appointment_date=date,
@@ -299,10 +311,6 @@ def chatbot_gpt(request):
         return Response({'error': 'Message is required'}, status=400)
 
     try:
-        print(f"Received message: {user_message}")
-        print(f"API Key exists: {bool(settings.OPENAI_API_KEY)}")
-        
-        # Initialize OpenAI client
         client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
         
         # Create a system prompt with barbershop context
@@ -340,9 +348,6 @@ PERSONALITY:
 
 Remember: You're representing a real business, so be professional but personable. Make customers feel welcome and excited about their potential visit!"""
 
-        print("Making OpenAI API call...")
-        
-        # Make API call to OpenAI
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -356,8 +361,6 @@ Remember: You're representing a real business, so be professional but personable
         )
         
         bot_response = response.choices[0].message.content
-        print(f"GPT Response: {bot_response}")
-        
         return Response({
             'response': bot_response,
             'success': True,
@@ -365,9 +368,6 @@ Remember: You're representing a real business, so be professional but personable
         })
         
     except Exception as e:
-        print(f"OpenAI API Error: {str(e)}")
-        print(f"Error type: {type(e)}")
-        
         # Smart fallback responses with personality
         message_lower = user_message.lower()
         

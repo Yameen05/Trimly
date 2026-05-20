@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import TrimlyLogo from '../images/Trimly.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,8 +26,12 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                <span className="text-white font-bold text-xl">✂</span>
+              <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mr-4 shadow-lg border border-gray-100">
+                <img 
+                  src={TrimlyLogo} 
+                  alt="Trimly Logo" 
+                  className="w-12 h-12 object-contain rounded-full"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-gray-900 font-bold text-2xl tracking-tight">Trimly</span>
