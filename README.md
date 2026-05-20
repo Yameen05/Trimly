@@ -220,7 +220,18 @@ Once the backend is running, visit:
 - Feature highlights with smooth animations
 - Professional business information display
 - Integrated location services
+<img width="1800" height="944" alt="Screenshot 2025-08-14 at 7 13 39 PM" src="https://github.com/user-attachments/assets/0deed6d4-0c62-42bc-bdf8-337c48e7ffb4" />
 
+<<<<<<< HEAD
+=======
+<img width="1800" height="942" alt="Screenshot 2025-08-14 at 7 13 51 PM" src="https://github.com/user-attachments/assets/cd4067bd-4fb4-4993-bb15-57ffa08ee3fb" />
+
+<img width="1800" height="934" alt="Screenshot 2025-08-14 at 7 14 03 PM" src="https://github.com/user-attachments/assets/aedc62c5-dfc4-4559-a0ae-02959d0ad5ac" />
+
+<img width="1800" height="944" alt="Screenshot 2025-08-14 at 7 14 10 PM" src="https://github.com/user-attachments/assets/7928f884-c7f8-4819-a24a-651698e55afe" />
+
+
+>>>>>>> 0c529ab978a429559c4c8b9bf4b9f9581f757b7b
 ### ℹ️ **About Page**
 
 - Professional barber introduction and background
@@ -228,12 +239,29 @@ Once the backend is running, visit:
 - Team showcase with expertise highlights
 - Trust-building content and credentials
 
+<img width="1800" height="939" alt="Screenshot 2025-08-14 at 7 16 11 PM" src="https://github.com/user-attachments/assets/09e9e8a0-54cd-40b6-b75c-4d326a876fc6" />
+
+<<<<<<< HEAD
+=======
+<img width="1800" height="938" alt="Screenshot 2025-08-14 at 7 16 20 PM" src="https://github.com/user-attachments/assets/96f42a5f-ff35-4a30-87c7-100586941cf9" />
+
+<img width="1800" height="943" alt="Screenshot 2025-08-14 at 7 16 30 PM" src="https://github.com/user-attachments/assets/6d349651-45d6-432e-b3b9-1744945ea1b0" />
+
+<img width="1800" height="938" alt="Screenshot 2025-08-14 at 7 16 41 PM" src="https://github.com/user-attachments/assets/0108747c-2340-4097-94d1-273702f2107b" />
+
+
 ### 🛍️ **Services Showcase**
 
+>>>>>>> 0c529ab978a429559c4c8b9bf4b9f9581f757b7b
 - Comprehensive service catalog with detailed descriptions
 - Professional pricing structure
 - Service duration and booking information
 - Visual service gallery
+
+<img width="1800" height="938" alt="Screenshot 2025-08-14 at 7 21 50 PM" src="https://github.com/user-attachments/assets/68871ebd-ddca-4d71-9f17-137ec65dbf00" />
+
+<img width="1800" height="936" alt="Screenshot 2025-08-14 at 7 21 57 PM" src="https://github.com/user-attachments/assets/4140b6bc-9bf6-4fae-9a18-e2dedbbfeb0b" />
+
 
 ### 📋 **Booking Appointment Interface**
 
@@ -243,12 +271,17 @@ Once the backend is running, visit:
 - Customer information capture
 - Booking confirmation flow
 
+<<<<<<< HEAD
 ### 📋 **Service Booking Interface**
 
 - Clean service catalog with pricing
 - Interactive booking modal with real-time availability
 - Comprehensive appointment summary
 - Seamless user experience flow
+=======
+<img width="1800" height="936" alt="Screenshot 2025-08-14 at 7 22 49 PM" src="https://github.com/user-attachments/assets/18261c30-5231-418e-9030-34436a9f009e" />
+
+>>>>>>> 0c529ab978a429559c4c8b9bf4b9f9581f757b7b
 
 ### 📅 **Appointment Management**
 
@@ -257,20 +290,40 @@ Once the backend is running, visit:
 - Status tracking and history
 - Mobile-optimized interface
 
+<img width="1800" height="943" alt="Screenshot 2025-08-15 at 12 30 23 AM" src="https://github.com/user-attachments/assets/7a5eee51-df9c-4ea4-89b1-9e377a11717e" />
+
+<<<<<<< HEAD
+=======
+
 ### 📞 **Contact & Location**
 
+>>>>>>> 0c529ab978a429559c4c8b9bf4b9f9581f757b7b
 - Integrated Google Maps location
 - Business contact information
 - Operating hours display
 - Direct communication options
 
+<img width="1800" height="944" alt="Screenshot 2025-08-14 at 7 23 29 PM" src="https://github.com/user-attachments/assets/d8b38ba7-4c51-49f4-9494-0c7caf2efb6d" />
+
+<<<<<<< HEAD
+=======
+<img width="1799" height="945" alt="Screenshot 2025-08-14 at 7 23 55 PM" src="https://github.com/user-attachments/assets/12eec766-420c-4ebd-b1cd-08e957280bcc" />
+
 ### 💬 **AI Chatbot Integration**
 
+>>>>>>> 0c529ab978a429559c4c8b9bf4b9f9581f757b7b
 - Intelligent customer support
 - Natural conversation flow
 - Business-specific knowledge base
 - 24/7 availability with fallback responses
 
+<<<<<<< HEAD
+=======
+<img width="444" height="544" alt="Screenshot 2025-08-14 at 7 24 55 PM" src="https://github.com/user-attachments/assets/cf076f50-9749-479e-ab7a-a4ee261fb001" />
+
+<img width="420" height="513" alt="Screenshot 2025-08-14 at 7 25 16 PM" src="https://github.com/user-attachments/assets/8da0ea5b-1ee3-4d54-8df1-178f94f05a69" />
+
+>>>>>>> 0c529ab978a429559c4c8b9bf4b9f9581f757b7b
 ---
 
 ## 🏗️ Architecture & Design Patterns
