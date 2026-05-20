@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const About = () => (
+const API_BASE_URL = 'http://localhost:8000/api';
+
+const About = () => {
+  const [barbers, setBarbers] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/barbers/`, { withCredentials: true })
+      .then((res) => setBarbers(res.data))
+      .catch(() => {});
+  }, []);
+
+  return (
   <div className="min-h-screen bg-gray-50">
     {/* Hero Section */}
     <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-24">
@@ -66,83 +79,62 @@ const About = () => (
       </div>
     </div>
 
-    {/* Meet Ali Section */}
+    {/* Meet Our Barbers */}
     <div className="py-24 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full mb-6">
-              <span className="text-blue-600 text-sm font-semibold">FEATURED BARBER</span>
-            </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Meet Ali</h2>
-            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              Ali is a master barber with over 8 years of experience in the craft. Specializing in classic cuts, 
-              modern styles, and precision beard work, Ali brings passion and expertise to every appointment.
-            </p>
-            
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center">
-                <svg className="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-gray-700">8+ Years of Experience</span>
-              </div>
-              <div className="flex items-center">
-                <svg className="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-gray-700">Specializes in Classic & Modern Cuts</span>
-              </div>
-              <div className="flex items-center">
-                <svg className="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-gray-700">Expert in Beard Styling & Grooming</span>
-              </div>
-              <div className="flex items-center">
-                <svg className="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-gray-700">Located in Charlotte, NC</span>
-              </div>
-            </div>
-
-            <Link
-              to="/services"
-              className="inline-flex items-center bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
-            >
-              Book with Ali
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full mb-4">
+            <span className="text-blue-600 text-sm font-semibold">OUR TEAM</span>
           </div>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Barbers</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Skilled professionals who bring passion and expertise to every appointment.
+          </p>
+        </div>
 
-          <div className="relative">
-            <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-8 text-white shadow-2xl">
-              <div className="w-32 h-32 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-6xl font-bold">A</span>
-              </div>
-              <div className="text-center">
-                <h3 className="text-2xl font-bold mb-2">Ali</h3>
-                <p className="text-blue-100 mb-4">Master Barber</p>
-                <div className="flex justify-center space-x-4 text-sm">
-                  <div className="text-center">
-                    <div className="font-bold text-xl">500+</div>
-                    <div className="text-blue-200">Happy Clients</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-bold text-xl">8+</div>
-                    <div className="text-blue-200">Years Experience</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="font-bold text-xl">4.9</div>
-                    <div className="text-blue-200">Rating</div>
+        {barbers.length === 0 ? (
+          <div className="text-center py-8 text-gray-400">Loading barbers…</div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {barbers.map((barber) => (
+              <div key={barber.id} className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-700 p-8 flex items-center justify-center">
+                  <div className="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center">
+                    <span className="text-white font-bold text-4xl">{barber.name.charAt(0)}</span>
                   </div>
                 </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">{barber.name}</h3>
+                  <p className="text-gray-500 text-sm mb-3">Master Barber</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {barber.specialties.split(',').map((s, i) => (
+                      <span key={i} className="bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full border border-blue-100 font-medium">
+                        {s.trim()}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    to="/services"
+                    className="block w-full text-center bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2.5 px-4 rounded-xl font-bold hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg text-sm"
+                  >
+                    Book with {barber.name}
+                  </Link>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
+        )}
+
+        <div className="text-center mt-10">
+          <Link
+            to="/barbers"
+            className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+          >
+            View full team profiles
+            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
       </div>
     </div>
@@ -255,6 +247,7 @@ const About = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default About;

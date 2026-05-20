@@ -43,6 +43,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             <Link to="/" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive('/') ? 'bg-gray-900 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'}`}>Home</Link>
+            <Link to="/barbers" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive('/barbers') ? 'bg-gray-900 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'}`}>Barbers</Link>
             <Link to="/services" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive('/services') ? 'bg-gray-900 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'}`}>Book Appointment</Link>
             <Link to="/about" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive('/about') ? 'bg-gray-900 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'}`}>About</Link>
             <Link to="/contact" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isActive('/contact') ? 'bg-gray-900 text-white shadow-md' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'}`}>Contact</Link>
@@ -78,6 +79,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <div className="px-4 pt-4 pb-6 space-y-2 bg-white border-t border-gray-100 shadow-lg">
               <Link to="/" className={`block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 ${isActive('/') ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-100'}`} onClick={() => setIsMenuOpen(false)}>Home</Link>
+              <Link to="/barbers" className={`block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 ${isActive('/barbers') ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-100'}`} onClick={() => setIsMenuOpen(false)}>Barbers</Link>
               <Link to="/services" className={`block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 ${isActive('/services') ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-100'}`} onClick={() => setIsMenuOpen(false)}>Book Appointment</Link>
               <Link to="/about" className={`block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 ${isActive('/about') ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-100'}`} onClick={() => setIsMenuOpen(false)}>About</Link>
               <Link to="/contact" className={`block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-200 ${isActive('/contact') ? 'bg-gray-900 text-white' : 'text-gray-700 hover:bg-gray-100'}`} onClick={() => setIsMenuOpen(false)}>Contact</Link>

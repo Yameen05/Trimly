@@ -3,12 +3,15 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
+const STATUS_FILTERS = ['All', 'Scheduled', 'Cancelled', 'Completed'];
+
 const Appointments = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [message, setMessage] = useState('');
+  const [activeFilter, setActiveFilter] = useState('All');
 
   // API base URL - adjust this to match your Django server
   const API_BASE_URL = 'http://localhost:8000/api';
@@ -91,6 +94,10 @@ const Appointments = () => {
     return `${displayHour}:${minutes} ${ampm}`;
   };
 
+  const filteredAppointments = activeFilter === 'All'
+    ? appointments
+    : appointments.filter(a => a.status === activeFilter.toLowerCase());
+
   if (loadingData) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -110,6 +117,33 @@ const Appointments = () => {
           <p className="text-lg text-gray-600">Manage your appointments with Ali</p>
         </div>
 
+        {/* Status Filter Tabs */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {STATUS_FILTERS.map((filter) => {
+            const count = filter === 'All'
+              ? appointments.length
+              : appointments.filter(a => a.status === filter.toLowerCase()).length;
+            return (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                  activeFilter === filter
+                    ? 'bg-gray-900 text-white border-gray-900 shadow-md'
+                    : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900'
+                }`}
+              >
+                {filter}
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                  activeFilter === filter ? 'bg-white text-gray-900' : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Message Display */}
         {message && (
           <div className={`mb-8 p-4 rounded-xl shadow-lg ${
@@ -126,7 +160,7 @@ const Appointments = () => {
           </div>
         )}
 
-        {appointments.length === 0 ? (
+        {filteredAppointments.length === 0 ? (
           <div className="text-center py-16">
             <div className="bg-white rounded-2xl p-12 shadow-xl border border-gray-100 max-w-md mx-auto">
               <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -134,9 +168,13 @@ const Appointments = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">No Appointments Yet</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                {activeFilter === 'All' ? 'No Appointments Yet' : `No ${activeFilter} Appointments`}
+              </h3>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Ready for a fresh cut? Book your first appointment with Ali and experience premium barbershop service.
+                {activeFilter === 'All'
+                  ? 'Ready for a fresh cut? Book your first appointment and experience premium barbershop service.'
+                  : `You have no ${activeFilter.toLowerCase()} appointments.`}
               </p>
               <Link
                 to="/services"
@@ -151,7 +189,7 @@ const Appointments = () => {
           </div>
         ) : (
           <div className="grid gap-6">
-            {appointments.map((appointment) => (
+            {filteredAppointments.map((appointment) => (
               <div
                 key={appointment.id}
                 className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 appointment-card"
@@ -228,7 +266,7 @@ const Appointments = () => {
         )}
 
         {/* Quick Actions */}
-        {appointments.length > 0 && (
+        {filteredAppointments.length > 0 && (
           <div className="mt-8 text-center">
             <Link
               to="/services"

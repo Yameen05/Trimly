@@ -37,8 +37,8 @@ const Home = () => {
             </h1>
             <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               {user
-                ? 'Ready for your next fresh cut with Ali? Book an appointment or view your bookings below.'
-                : 'Book appointments with skilled barbers like Ali. Modern booking platform, traditional craftsmanship, exceptional results.'}
+                ? 'Ready for your next fresh cut? Book an appointment or view your bookings below.'
+                : 'Book appointments with our skilled barbers. Modern booking platform, traditional craftsmanship, exceptional results.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
@@ -76,7 +76,7 @@ const Home = () => {
               Why Choose Trimly?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              The modern way to book appointments with skilled barbers like Ali
+              The modern way to book appointments with our skilled barbers
             </p>
           </div>
 
@@ -103,7 +103,7 @@ const Home = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Expert Barbers</h3>
               <p className="text-gray-600 leading-relaxed">
-                Connect with skilled barbers like Ali who bring years of experience and passion for the craft.
+                Connect with skilled barbers who bring years of experience and passion for the craft.
               </p>
             </div>
 
@@ -142,7 +142,7 @@ const Home = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4">
                     <span className="text-white font-bold text-xl">✂</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Ali's Location</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">Our Location</h3>
                 </div>
                 
                 <div className="space-y-4">
@@ -222,7 +222,7 @@ const Home = () => {
             Ready for a Fresh Look?
           </h2>
           <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-            Experience the art of traditional barbering. Book your appointment with Ali today through Trimly's seamless platform.
+            Experience the art of traditional barbering. Book your appointment today through Trimly's seamless platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link

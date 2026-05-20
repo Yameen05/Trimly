@@ -8,13 +8,14 @@ import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
+import Barbers from './pages/Barbers';
 import NotFound from './pages/NotFound';
 
 function App() {
   return (
     <Router>
       <Navbar />
-      <div className="p-4">
+      <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/appointments" element={<Appointments />} />
@@ -22,6 +23,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/barbers" element={<Barbers />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

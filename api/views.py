@@ -86,11 +86,12 @@ def get_my_appointments(request):
 
 @swagger_auto_schema(
     method='post',
-    operation_description="Book a new appointment with Ali",
+    operation_description="Book a new appointment with a barber",
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
-        required=['appointment_date', 'appointment_time', 'service_id', 'customer_phone'],
+        required=['appointment_date', 'appointment_time', 'service_id', 'customer_phone', 'barber_id'],
         properties={
+            'barber_id': openapi.Schema(type=openapi.TYPE_INTEGER, description='Barber ID'),
             'appointment_date': openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_DATE, description='Appointment date (YYYY-MM-DD)'),
             'appointment_time': openapi.Schema(type=openapi.TYPE_STRING, description='Appointment time (HH:MM format)'),
             'service_id': openapi.Schema(type=openapi.TYPE_INTEGER, description='Service ID'),
@@ -116,32 +117,28 @@ def get_my_appointments(request):
 @api_view(['POST'])
 @authentication_classes([CsrfExemptSessionAuthentication])
 def book_appointment(request):
-    """
-    Book a new appointment with Ali the barber.
-    
-    Requires user authentication and validates appointment availability.
-    Creates a new appointment record with the specified service and time.
-    """
     if not request.user.is_authenticated:
         return Response({'error': 'Authentication required.'}, status=401)
-    
-    data = request.data
-    try:
-        ali = Barber.objects.get(name="Ali")
-    except Barber.DoesNotExist:
-        return Response({'error': 'Barber not found.'}, status=404)
 
-    # Require customer_phone
+    data = request.data
+
+    barber_id = data.get('barber_id')
+    if not barber_id:
+        return Response({'error': 'barber_id is required.'}, status=400)
+    try:
+        barber = Barber.objects.get(id=barber_id, is_available=True)
+    except Barber.DoesNotExist:
+        return Response({'error': 'Barber not found or unavailable.'}, status=404)
+
     customer_phone = data.get('customer_phone')
     if not customer_phone:
         return Response({'error': 'Phone number is required.'}, status=400)
-    
-    # Validate required fields
+
     required_fields = ['appointment_date', 'appointment_time', 'service_id']
     for field in required_fields:
         if not data.get(field):
             return Response({'error': f'{field} is required.'}, status=400)
-    
+
     notes = data.get('notes', '')
 
     try:
@@ -154,7 +151,7 @@ def book_appointment(request):
     try:
         appointment = Appointment.objects.create(
             customer=request.user,
-            barber=ali,
+            barber=barber,
             appointment_date=data['appointment_date'],
             appointment_time=data['appointment_time'],
             service_id=data['service_id'],
@@ -200,8 +197,14 @@ def delete_appointment(request, appointment_id):
 
 @api_view(['GET'])
 def get_available_times(request):
-    date = request.GET.get('date')
-    if not date:
+    selected_date = request.GET.get('date')
+    barber_id = request.GET.get('barber_id')
+    if not selected_date or not barber_id:
+        return Response({'slots': []})
+
+    try:
+        barber = Barber.objects.get(id=barber_id, is_available=True)
+    except Barber.DoesNotExist:
         return Response({'slots': []})
 
     start_time = datetime.strptime('09:00', '%H:%M').time()
@@ -214,13 +217,9 @@ def get_available_times(request):
         base_times.append(current_time.time())
         current_time += timedelta(hours=1)
 
-    try:
-        ali = Barber.objects.get(name="Ali")
-    except Barber.DoesNotExist:
-        return Response({'slots': []})
     booked_times = set(Appointment.objects.filter(
-        barber=ali,
-        appointment_date=date,
+        barber=barber,
+        appointment_date=selected_date,
         status='scheduled'
     ).values_list('appointment_time', flat=True))
 
@@ -314,11 +313,10 @@ def chatbot_gpt(request):
         client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
         
         # Create a system prompt with barbershop context
-        system_prompt = """You are Trimly's AI assistant - a smart, friendly, and conversational chatbot helping customers with Ali's barbershop in Charlotte, NC. You're knowledgeable, personable, and genuinely helpful.
+        system_prompt = """You are Trimly's AI assistant - a smart, friendly, and conversational chatbot helping customers book barbershop appointments in Charlotte, NC. You're knowledgeable, personable, and genuinely helpful.
 
-🏪 ABOUT ALI'S BARBERSHOP:
-- Ali is a master barber with years of experience
-- Specializes in classic cuts, modern styles, and precision beard work
+🏪 ABOUT TRIMLY BARBERSHOP:
+- Team of expert barbers specializing in classic cuts, modern styles, and precision beard work
 - Known for attention to detail and customer satisfaction
 - Location: 6721 E Independence Blvd, Charlotte, NC 28212
 - Phone: (980) 318-4863
@@ -331,7 +329,7 @@ def chatbot_gpt(request):
 - All services include professional consultation
 
 📅 BOOKING & POLICIES:
-- Easy online booking through Trimly platform
+- Easy online booking through Trimly platform - choose your barber, date, and time
 - Walk-ins welcome but appointments get priority
 - Cancellation: 2+ hours notice required, no fees
 - Payment: Cash, all cards, Zelle, Apple Pay, Cash App, Venmo
@@ -342,7 +340,6 @@ PERSONALITY:
 - Show genuine interest in helping customers
 - Use emojis occasionally to be friendly
 - Ask follow-up questions when appropriate
-- Be enthusiastic about Ali's skills and services
 - Keep responses concise but informative (2-3 sentences max)
 - If someone asks about booking, guide them to the booking page or suggest calling
 
